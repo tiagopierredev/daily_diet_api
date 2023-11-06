@@ -17,12 +17,6 @@ export const swaggerOptions: SwaggerOptions = {
 				in: "header",
 			},
 		},
-		tags: [
-			{
-				name: "Authentication",
-				description: "Routes for user authentication",
-			},
-		],
 	},
 };
 
@@ -48,7 +42,6 @@ export const swaggerSchema = {
 	refreshToken: {
 		description: "Route for user refresh authentication",
 		tags: ["Authentication"],
-		body: null,
 	},
 	register: {
 		description: "Route for user registration",
@@ -72,7 +65,6 @@ export const swaggerSchema = {
 	me: {
 		description: "Route for get user details",
 		tags: ["User"],
-		body: null,
 		security: [
 			{
 				apiKey: [],
@@ -106,7 +98,89 @@ export const swaggerSchema = {
 	deleteMe: {
 		description: "Route for delete user",
 		tags: ["User"],
-		body: null,
+		security: [
+			{
+				apiKey: [],
+			},
+		],
+	},
+	createSnack: {
+		description: "Route for create snack",
+		tags: ["Meals"],
+		body: {
+			type: "object",
+			properties: {
+				name: {
+					type: "string",
+				},
+				description: {
+					type: "string",
+				},
+				date: {
+					type: "string",
+					default: new Date(),
+				},
+				isDiet: {
+					type: "boolean",
+				},
+			},
+			required: ["name", "description", "date", "isDiet"],
+		},
+		security: [
+			{
+				apiKey: [],
+			},
+		],
+	},
+	updateSnack: {
+		description: "Route for update snack",
+		tags: ["Meals"],
+		body: {
+			type: "object",
+			properties: {
+				name: {
+					type: "string",
+				},
+				description: {
+					type: "string",
+				},
+				date: {
+					type: "string",
+					default: new Date(),
+				},
+				isDiet: {
+					type: "boolean",
+				},
+			},
+			required: ["name", "description", "date", "isDiet"],
+		},
+		security: [
+			{
+				apiKey: [],
+			},
+		],
+	},
+	deleteSnack: {
+		description: "Route for delete user",
+		tags: ["Meals"],
+		security: [
+			{
+				apiKey: [],
+			},
+		],
+	},
+	getUniqueSnack: {
+		description: "Route for get unique snack details",
+		tags: ["Meals"],
+		security: [
+			{
+				apiKey: [],
+			},
+		],
+	},
+	dashboard: {
+		description: "Route for get user details",
+		tags: ["Dashboard"],
 		security: [
 			{
 				apiKey: [],
