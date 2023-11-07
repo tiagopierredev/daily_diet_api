@@ -1,36 +1,29 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+interface ContentProps {
+    insets: {
+        top: number;
+        bottom: number;
+    };
+}
+
+export const Content = styled.View<ContentProps>`
     flex: 1;
-    background-color: ${({ theme }) => theme.colors.backgroundColor};
-    align-items: center;
-    justify-content: center;
+    padding: 24px;
+    padding-top: ${({ insets }) => insets.top + 16}px;
+    padding-bottom: ${({ insets }) => insets.bottom}px;
+    position: relative;
 `;
 
-export const Content = styled.View`
-    flex-direction: row;
-    align-items: center;
+export const CardContainer = styled.View`
+    margin-top: ${({ theme }) => theme.size(24)};
 `;
 
-export const FirstBox = styled.View`
-    width: 70px;
-    height: 70px;
-    margin-right: 20px;
+export const List = styled.FlatList`
+    margin-top: ${({ theme }) => theme.size(32)};
+    flex: 1;
 `;
 
-export const SecondBox = styled.View``;
-
-export const Logo = styled.Image`
-    width: 100%;
-    height: 100%;
-`;
-
-export const Title = styled.Text`
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 38px;
-`;
-
-export const Description = styled.Text`
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 12px;
+export const ListHeaderContainer = styled.View`
+    margin-top: ${({ theme }) => theme.size(32)};
 `;
