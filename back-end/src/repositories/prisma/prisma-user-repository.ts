@@ -22,7 +22,7 @@ export class PrismaUserRepository implements UserRepository {
 	}
 
 	async findById(id: string) {
-		const user = prisma.user.findUnique({
+		const user = await prisma.user.findUnique({
 			where: {
 				id,
 			},

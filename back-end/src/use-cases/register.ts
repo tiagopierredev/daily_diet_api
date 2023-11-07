@@ -7,6 +7,7 @@ interface CreateUserUseCaseRequest {
 	email: string;
 	password: string;
 	name: string;
+	photo: string;
 }
 
 interface CreateUserUseCaseResponse {
@@ -20,17 +21,22 @@ export class CreateUserUseCase {
 		email,
 		password,
 		name,
+		photo,
 	}: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
 		const password_hash = await hash(password, 6);
 		const userWithSameEmail = await this.useRepository.findByEmail(email);
+
 		if (userWithSameEmail) {
 			throw new UserAlreadyExists();
 		}
+
 		const user = await this.useRepository.create({
 			email,
 			password_hash,
 			name,
+			photo,
 		});
+		
 		return {
 			user,
 		};

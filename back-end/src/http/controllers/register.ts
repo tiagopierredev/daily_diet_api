@@ -5,20 +5,26 @@ import { UserAlreadyExists } from "../../use-cases/errors/user-already-exists";
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
 	const schemaBody = z.object({
-		email: z.string().email("Email is invalid"),
+		email: z.string().email("Email inválido!"),
 		name: z.string(),
-		password: z.string().min(6, "Password must be at least 6 characters"),
+		password: z.string().min(6, "A senha deve ter pelo menos 6 caracteres!"),
+		confirmPassword: z.string().min(6, "A senha deve ter pelo menos 6 caracteres!"),
+		photo: z.string().url("A URL da imagem é inválida!").optional(),
+	}).refine(data => data.password === data.confirmPassword, {
+		message: "As senhas não correspondem!",
 	});
-	const { email, name, password } = schemaBody.parse(request.body);
+
 	try {
+		const { email, name, password, photo } = schemaBody.parse(request.body);
 		const createUserUseCase = makeRegisterUseCase();
 		await createUserUseCase.execute({
 			email,
 			name,
 			password,
+			photo: photo || "",
 		});
 		reply.status(201).send({
-			message: "User created successfully",
+			message: "Cadastro realizado com sucesso!",
 		});
 	} catch (err) {
 		if (err instanceof UserAlreadyExists) {

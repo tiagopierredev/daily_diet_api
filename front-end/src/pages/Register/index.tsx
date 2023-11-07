@@ -36,25 +36,31 @@ export function Register() {
                 <S.Title>Criar conta</S.Title>
             </S.Header>
             <S.Content>
-                <S.ButtonPhotoProfile>
+                {/* <S.ButtonPhotoProfile>
                     <UserIcon />
                     <S.CamIcon>
                         <Camera color={theme.colors.white} />
                     </S.CamIcon>
-                </S.ButtonPhotoProfile>
-                <Input placeholder="Nome" control={control} name="name" />
-                <Input
-                    placeholder="E-mail"
-                    control={control}
-                    name="description"
-                />
-                <Input placeholder="Senha" control={control} name="password" />
-                <Input
-                    placeholder="Confirmar senha"
-                    control={control}
-                    name="confirmPassword"
-                />
-                <Button title="Salvar" onPress={handleGoToHome} />
+                </S.ButtonPhotoProfile> */}
+                <S.Form>
+                    <Input placeholder="Nome" control={control} name="name" />
+                    <Input
+                        placeholder="E-mail"
+                        control={control}
+                        name="description"
+                    />
+                    <Input
+                        placeholder="Senha"
+                        control={control}
+                        name="password"
+                    />
+                    <Input
+                        placeholder="Confirmar senha"
+                        control={control}
+                        name="confirmPassword"
+                    />
+                </S.Form>
+                <Button title="Cadastrar" onPress={handleGoToHome} />
             </S.Content>
         </S.Container>
     );

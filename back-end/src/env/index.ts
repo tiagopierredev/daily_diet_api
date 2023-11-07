@@ -7,6 +7,7 @@ const envSchema = z.object({
 		.enum(["development", "test", "production"])
 		.default("production"),
 	JWT_SECRET: z.string(),
+	IMGBB_API_KEY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);

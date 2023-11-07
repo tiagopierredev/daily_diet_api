@@ -1,16 +1,16 @@
 import fastify from "fastify";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCokies from "@fastify/cookie";
+import multipart from "@fastify/multipart";
 import fastifyCors from "@fastify/cors";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 import fastifySwagger from "@fastify/swagger";
 import { appRoutes } from "./http/routes";
 import { ZodError } from "zod";
 import { env } from "./env";
-import { swaggerOptions } from "./swagger";
 
 export const app = fastify();
-
+app.register(multipart);
 app.register(fastifyJwt, {
 	secret: env.JWT_SECRET,
 	cookie: {
@@ -22,7 +22,16 @@ app.register(fastifyJwt, {
 	},
 });
 app.register(fastifyCokies);
-app.register(fastifySwagger, swaggerOptions);
+app.register(fastifySwagger, {
+	mode: "static",
+	specification: {
+		path: "./src/swagger.json",
+		postProcessor: function (swaggerObject) {
+			return swaggerObject;
+		},
+		baseDir: "/path/to/external/spec/files/location",
+	},
+});
 app.register(fastifySwaggerUi, {
 	routePrefix: "/api-docs",
 });

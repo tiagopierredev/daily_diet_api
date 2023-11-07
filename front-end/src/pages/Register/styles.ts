@@ -35,7 +35,11 @@ export const ButtonGoBack = styled.TouchableOpacity`
 
 export const Content = styled.ScrollView.attrs({
     showsVerticalScrollIndicator: false,
+    contentContainerStyle: {
+        flex: 1,
+    },
 })`
+    flex: 1;
     padding: ${({ theme }) => theme.size(24)};
     background-color: ${({ theme }) => theme.colors.white};
     border-top-left-radius: 20px;
