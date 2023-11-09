@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { makeGetUniqueSnackUseCase } from "../../use-cases/factories/make-get-unique-snack-use-case";
 import { string, z } from "zod";
 import { MealsNotFound } from "../../use-cases/errors/meals-not-found";
+import { MealsNotIsFromUser } from "../../use-cases/errors/meals-not-is-from-user";
 
 export async function getUniqueSnack(request: FastifyRequest, reply: FastifyReply) {
 	const schemaParams = z.object({
@@ -17,6 +18,11 @@ export async function getUniqueSnack(request: FastifyRequest, reply: FastifyRepl
 		return reply.status(200).send({ snack });
 	} catch (err) {
 		if (err instanceof MealsNotFound) {
+			return reply.status(409).send({
+				message: err.message,
+			});
+		}
+		if (err instanceof MealsNotIsFromUser) {
 			return reply.status(409).send({
 				message: err.message,
 			});

@@ -1,5 +1,5 @@
 <h1 align="center" style="text-align: center;">
-  <img alt="Logo do ToDo" src="./src/assets/todo-logo.svg" style="vertical-align: middle;">
+  <img alt="Logo do ToDo" src="./front-end/src/assets/images/logo.png" style="vertical-align: middle;">
 </h1>
 
 > Desafio 02 da Trilha ReactJS do Ignite da Rocketseat.

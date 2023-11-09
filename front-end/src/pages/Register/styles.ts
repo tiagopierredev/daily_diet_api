@@ -11,16 +11,15 @@ interface HeaderProps {
 
 export const Container = styled.View`
     flex: 1;
-    background-color: ${({ theme }) => theme.colors.gray_500};
+    background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Header = styled.View<HeaderProps>`
     width: 100%;
-    flex-direction: row;
     align-items: center;
+    flex-direction: row;
     justify-content: center;
     margin-top: ${({ insets, theme }) => theme.size(insets.top)};
-    margin-bottom: ${({ insets, theme }) => theme.size(insets.bottom)};
 `;
 
 export const Title = styled.Text`
@@ -40,14 +39,16 @@ export const Content = styled.ScrollView.attrs({
     },
 })`
     flex: 1;
-    padding: ${({ theme }) => theme.size(24)};
+    padding-left: ${({ theme }) => theme.size(24)};
+    padding-right: ${({ theme }) => theme.size(24)};
+    padding-bottom: ${({ theme }) => theme.size(24)};
     background-color: ${({ theme }) => theme.colors.white};
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 `;
 
 export const Form = styled.View`
-    flex: 1;
+    margin-bottom: ${({ theme }) => theme.size(8)};
 `;
 
 export const ButtonPhotoProfile = styled.TouchableOpacity`
@@ -74,4 +75,29 @@ export const CamIcon = styled.View`
     position: absolute;
     bottom: 0;
     right: 0;
+`;
+
+export const Description = styled.Text`
+    color: ${({ theme }) => theme.colors.gray_100};
+    font-size: ${({ theme }) => theme.size(14)};
+    font-family: ${({ theme }) => theme.fonts.regular};
+    text-align: center;
+    margin-bottom: ${({ theme }) => theme.size(40)};
+`;
+
+export const Logo = styled.Image`
+    width: ${({ theme }) => theme.size(82)};
+    height: ${({ theme }) => theme.size(37)};
+    align-self: center;
+    margin-bottom: ${({ theme }) => theme.size(8)};
+`;
+
+export const LogoContainer = styled.View``;
+
+export const OrText = styled.Text`
+    font-size: ${({ theme }) => theme.size(14)};
+    font-family: ${({ theme }) => theme.fonts.bold};
+    margin-bottom: ${({ theme }) => theme.size(8)};
+    margin-top: ${({ theme }) => theme.size(8)};
+    text-align: center;
 `;

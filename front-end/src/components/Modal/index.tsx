@@ -4,11 +4,12 @@ import { ModalProps } from 'react-native';
 import { Button } from '../Button';
 
 interface Props extends ModalProps {
-    title: string;
-    textButtonConfirm: string;
-    handleButtonConfirm: () => void;
+    title?: string;
+    textButtonConfirm?: string;
+    handleButtonConfirm?: () => void;
     textButtonCanceled?: string;
     handleButtonCanceled?: () => void;
+    isLoading?: boolean;
 }
 
 export function Modal({
@@ -17,6 +18,7 @@ export function Modal({
     handleButtonConfirm,
     textButtonCanceled,
     textButtonConfirm,
+    isLoading,
     ...rest
 }: Props) {
     return (
@@ -31,14 +33,17 @@ export function Modal({
                                 outlined
                                 title={textButtonCanceled}
                                 onPress={handleButtonCanceled}
+                                disabled={isLoading}
                             />
                         )}
                         <Button
                             style={{
                                 width: textButtonCanceled ? '48%' : '100%',
                             }}
-                            title={textButtonConfirm}
+                            title={textButtonConfirm || ''}
                             onPress={handleButtonConfirm}
+                            isLoading={isLoading}
+                            disabled={isLoading}
                         />
                     </S.ButtonContainer>
                 </S.Body>

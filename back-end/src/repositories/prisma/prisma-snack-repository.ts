@@ -43,7 +43,7 @@ export class PrismaSnackRepository implements SnackRepository {
 				userId,
 			},
 			orderBy: {
-				created_at: "asc",
+				date: "desc"
 			}
 		});
 		return snacks;

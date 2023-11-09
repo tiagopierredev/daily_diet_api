@@ -1,5 +1,5 @@
 // libraries
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from '../../components/Container';
 
 // styles
@@ -9,17 +9,51 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Cards } from '../../components/Cards';
 import { HeaderList } from '../../components/HeaderList';
 import { MealsCard } from '../../components/MealsCard';
+import { useQuery } from 'react-query';
+import { getDashboard } from '../../services/user';
+import { RefreshControl } from 'react-native';
+import { theme } from '../../styles/theme.config';
+import dayjs from 'dayjs';
 
 export function Home({ navigation }: any) {
-    const list = [{ id: 1 }, { id: 2 }, { id: 3 }];
+    const [list, setList] = useState<any>([]);
 
-    const percentage = 90.86;
+    const { isLoading, data, refetch } = useQuery(
+        '/dashboard',
+        async () => {
+            const response = await getDashboard();
+            return response;
+        },
+        {
+            onSuccess: async (data) => {
+                const groupedByDate: any = {};
 
-    const themeCard = percentage >= 70 ? 'light' : 'dark';
+                data?.data?.snacks.forEach((item: any) => {
+                    const date = dayjs(item?.date).format('DD.MM.YY');
+                    if (!groupedByDate[date]) {
+                        groupedByDate[date] = [];
+                    }
+                    groupedByDate[date].push(item);
+                });
+
+                const groupedArray = Object.keys(groupedByDate).map((date) => {
+                    return {
+                        date,
+                        meals: groupedByDate[date],
+                    };
+                });
+
+                setList(groupedArray);
+            },
+        }
+    );
 
     function navigateToUserMetrics() {
         navigation.navigate('UserMetrics');
     }
+
+    const percentage = data?.data?.percentage;
+    const themeCard = percentage >= 70 ? 'light' : 'dark';
 
     return (
         <Container>
@@ -29,7 +63,7 @@ export function Home({ navigation }: any) {
                     <Cards
                         isPercentage
                         themeCard={themeCard}
-                        title={`${percentage}%`}
+                        title={`${data?.data?.percentage || 0}%`}
                         description="das refeições dentro da dieta"
                         handleClick={navigateToUserMetrics}
                     />
@@ -40,7 +74,17 @@ export function Home({ navigation }: any) {
                 <S.List
                     showsVerticalScrollIndicator={false}
                     data={list}
-                    renderItem={() => <MealsCard />}
+                    renderItem={({ item }: any) => <MealsCard item={item} />}
+                    ListEmptyComponent={() => (
+                        <S.EmptyList>Nenhuma refeição encontrada</S.EmptyList>
+                    )}
+                    refreshControl={
+                        <RefreshControl
+                            tintColor={theme.colors.gray_100}
+                            refreshing={isLoading}
+                            onRefresh={refetch}
+                        />
+                    }
                 />
             </S.Content>
         </Container>

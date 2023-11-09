@@ -10,21 +10,113 @@ import { useForm } from 'react-hook-form';
 import { Button } from '../../components/Button';
 import { UserIcon } from '../../assets/images/userIcon';
 import { Camera, SignOut } from 'phosphor-react-native';
+import { useUserContext } from '../../context/useUserContext';
+import * as ImagePicker from 'expo-image-picker';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useMutation } from 'react-query';
+import { putMe } from '../../services/user';
+import { Alert } from 'react-native';
+import { upload } from '../../services/upload';
+
+const schema = yup
+    .object({
+        email: yup
+            .string()
+            .required('E-mail é obrigatório')
+            .email('E-mail inválido'),
+        name: yup.string().required('Nome é obrigatorio'),
+    })
+    .required();
 
 export function Profile() {
-    const { control } = useForm();
+    const { user, logoutUser } = useUserContext();
+    const [photo, setPhoto] = React.useState<string | null>(user?.photo || '');
+    const [base64Photo, setBase64Photo] = React.useState<string | null>();
+
+    const { control, handleSubmit } = useForm({
+        resolver: yupResolver(schema),
+    });
+    const { getUserInfo } = useUserContext();
     const navigation: any = useNavigation();
 
     function handleGoBack() {
         navigation.goBack();
     }
 
-    function handleGoToHome() {
-        navigation.navigate('Home');
-    }
-
     function handlePasswordView() {
         navigation.navigate('ProfilePassword');
+    }
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            base64: true,
+        });
+
+        if (!result.canceled) {
+            setBase64Photo(result.assets[0].base64);
+            setPhoto(result.assets[0].uri);
+        }
+    };
+
+    function renderUserPhoto() {
+        if (photo) {
+            return <S.UserPhoto source={{ uri: photo }} />;
+        } else {
+            return <UserIcon />;
+        }
+    }
+
+    const { mutateAsync, isLoading } = useMutation(
+        async (data: any) => {
+            const response = await putMe(data);
+            return response;
+        },
+        {
+            onSuccess: async () => {
+                Alert.alert(
+                    'Atualizado!',
+                    'Seu perfil foi atualizado com sucesso!'
+                );
+                await getUserInfo();
+            },
+            onError: (error: any) => {
+                alert(error.message);
+            },
+        }
+    );
+
+    const uploadMutation = useMutation(
+        async (data: any) => {
+            const response = await upload(data.photo);
+            return {
+                ...data,
+                photo: response.data.url,
+            };
+        },
+        {
+            onSuccess: async (data) => {
+                await mutateAsync(data);
+            },
+            onError: (error: any) => {
+                alert(error.message);
+            },
+        }
+    );
+
+    async function onSubmit(data: any) {
+        if (base64Photo) {
+            data.photo = base64Photo;
+
+            return await uploadMutation.mutateAsync(data);
+        }
+
+        return await mutateAsync(data);
     }
 
     return (
@@ -41,23 +133,29 @@ export function Profile() {
             </S.Header>
             <S.Content>
                 <S.Form>
-                    <S.ButtonPhotoProfile>
-                        <UserIcon />
+                    <S.ButtonPhotoProfile onPress={pickImage}>
+                        {renderUserPhoto()}
                         <S.CamIcon>
                             <Camera color={theme.colors.white} />
                         </S.CamIcon>
                     </S.ButtonPhotoProfile>
-                    <Input placeholder="Nome" control={control} name="name" />
+                    <Input
+                        placeholder="Nome"
+                        control={control}
+                        name="name"
+                        defaultValue={user?.name}
+                    />
                     <Input
                         placeholder="E-mail"
                         control={control}
-                        name="description"
+                        name="email"
+                        defaultValue={user?.email}
                     />
                     <S.ButtonContainer>
                         <S.PasswordButton onPress={handlePasswordView}>
                             <S.PasswordText>Alterar senha</S.PasswordText>
                         </S.PasswordButton>
-                        <S.PasswordButtonLogOut onPress={handlePasswordView}>
+                        <S.PasswordButtonLogOut onPress={logoutUser}>
                             <SignOut color={theme.colors.redDark} />
                             <S.PasswordButtonLogOutText>
                                 Sair
@@ -65,7 +163,12 @@ export function Profile() {
                         </S.PasswordButtonLogOut>
                     </S.ButtonContainer>
                 </S.Form>
-                <Button title="Salvar" onPress={handleGoToHome} />
+                <Button
+                    title="Salvar"
+                    onPress={handleSubmit(onSubmit)}
+                    disabled={isLoading || uploadMutation.isLoading}
+                    isLoading={isLoading || uploadMutation.isLoading}
+                />
             </S.Content>
         </S.Container>
     );

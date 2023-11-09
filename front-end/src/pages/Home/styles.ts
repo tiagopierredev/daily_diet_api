@@ -27,3 +27,9 @@ export const List = styled.FlatList`
 export const ListHeaderContainer = styled.View`
     margin-top: ${({ theme }) => theme.size(32)};
 `;
+
+export const EmptyList = styled.Text`
+    font-size: ${({ theme }) => theme.size(16)};
+    font-family: ${({ theme }) => theme.fonts.regular};
+    color: ${({ theme }) => theme.colors.gray_100};
+`;

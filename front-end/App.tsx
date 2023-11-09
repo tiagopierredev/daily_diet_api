@@ -12,6 +12,9 @@ import { Routes } from './src/routes';
 
 // styles
 import { theme } from './src/styles/theme.config';
+import { queryClient } from './src/services/queryClient';
+import { QueryClientProvider } from 'react-query';
+import { UserProvider } from './src/context/useUserContext';
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -24,8 +27,12 @@ export default function App() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <Routes />
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+            <UserProvider>
+                <ThemeProvider theme={theme}>
+                    <Routes />
+                </ThemeProvider>
+            </UserProvider>
+        </QueryClientProvider>
     );
 }

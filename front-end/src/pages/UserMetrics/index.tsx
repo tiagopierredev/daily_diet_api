@@ -5,13 +5,21 @@ import { Cards } from '../../components/Cards';
 import { ArrowLeft } from 'phosphor-react-native';
 import { theme } from '../../styles/theme.config';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useQuery } from 'react-query';
+import { getDashboard } from '../../services/user';
 
 export function UserMetrics({ navigation }: any) {
-    const isDiet = true;
-
     function handleNavigateToHome() {
         navigation.navigate('Home');
     }
+
+    const { isLoading, data } = useQuery('/dashboard', async () => {
+        const response = await getDashboard();
+        return response;
+    });
+
+    const percentage = data?.data?.percentage;
+    const isDiet = percentage >= 70;
 
     return (
         <S.Container isDiet={isDiet}>
@@ -27,7 +35,7 @@ export function UserMetrics({ navigation }: any) {
                         size={RFValue(24)}
                     />
                 </S.ButtonGoBack>
-                <S.Title>90,86%</S.Title>
+                <S.Title>{data?.data?.percentage || 0}%</S.Title>
                 <S.Description>das refeições dentro da dieta</S.Description>
             </S.Header>
             <S.Content>
@@ -35,14 +43,14 @@ export function UserMetrics({ navigation }: any) {
                 <S.OneCardContainer>
                     <Cards
                         themeCard="default"
-                        title="22"
+                        title={data?.data?.bestSequence}
                         description="melhor sequência de pratos dentro da dieta"
                     />
                 </S.OneCardContainer>
                 <S.OneCardContainer>
                     <Cards
                         themeCard="default"
-                        title="109"
+                        title={data?.data?.totalSnacks}
                         description="refeições registradas"
                     />
                 </S.OneCardContainer>
@@ -50,13 +58,13 @@ export function UserMetrics({ navigation }: any) {
                     <Cards
                         width="48%"
                         themeCard="light"
-                        title="99"
+                        title={data?.data?.totalSnacksIsDiet}
                         description="refeições dentro da dieta"
                     />
                     <Cards
                         width="48%"
                         themeCard="dark"
-                        title="10"
+                        title={data?.data?.totalSnacksIsNotDiet}
                         description="refeições fora da dieta"
                     />
                 </S.TwoCardContainer>

@@ -102,3 +102,9 @@ export const StatusDiet = styled.View<StatusDietProps>`
 export const Form = styled.View`
     flex: 1;
 `;
+
+export const LoadingContainer = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+`;

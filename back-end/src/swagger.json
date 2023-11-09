@@ -146,6 +146,12 @@
 								},
 								"password": {
 									"type": "string"
+								},
+								"photo": {
+									"type": "string"
+								},
+								"confirmPassword": {
+									"type": "string"
 								}
 							},
 							"required": []

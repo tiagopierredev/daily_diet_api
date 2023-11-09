@@ -24,7 +24,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 			photo: photo || "",
 		});
 		reply.status(201).send({
-			message: "Cadastro realizado com sucesso!",
+			message: "Conta criada com sucesso!",
 		});
 	} catch (err) {
 		if (err instanceof UserAlreadyExists) {

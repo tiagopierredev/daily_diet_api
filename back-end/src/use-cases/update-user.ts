@@ -8,6 +8,7 @@ interface UpdateUserUseCaseRequest {
 	email?: string;
 	password?: string;
 	name?: string;
+	photo?: string;
 }
 
 interface UpdateUserUseCaseResponse {
@@ -22,14 +23,14 @@ export class UpdateUserUseCase {
 		email,
 		password,
 		name,
+		photo,	
 	}: UpdateUserUseCaseRequest): Promise<UpdateUserUseCaseResponse> {
 		let password_hash;
-		console.log(password_hash);
+	
 		if (password) {
 			password_hash = await hash(password, 6);
 		}
-		console.log(password_hash);
-
+		
 		const userWithSameEmail = await this.useRepository.findById(id);
 		if (!userWithSameEmail) {
 			throw new UserNotFound();
@@ -38,6 +39,7 @@ export class UpdateUserUseCase {
 			email,
 			password_hash,
 			name,
+			photo,
 		});
 		return {
 			user,

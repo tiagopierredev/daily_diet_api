@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/native';
-
+import { MaskedTextInput } from 'react-native-mask-text';
 interface InputProps {
     multiline?: boolean;
 }
@@ -24,17 +24,24 @@ export const Input = styled.TextInput<InputProps>`
     font-size: ${({ theme }) => theme.size(16)};
     font-family: ${({ theme }) => theme.fonts.regular};
     color: ${({ theme }) => theme.colors.gray_200};
+`;
+
+export const InputContainer = styled.TouchableOpacity<InputProps>`
     border: 1px solid ${({ theme }) => theme.colors.gray_400};
     height: ${({ theme }) => theme.size(48)};
     border-radius: 6px;
-    padding: 0px ${({ theme }) => theme.size(12)};
+    padding: ${({ theme }) => theme.size(12)};
     ${({ multiline, theme }) =>
         multiline &&
         css`
             height: ${theme.size(120)};
-            padding-top: ${theme.size(12)};
-            padding-bottom: ${theme.size(12)};
         `}
+`;
+
+export const Masked = styled(MaskedTextInput)`
+    font-size: ${({ theme }) => theme.size(16)};
+    font-family: ${({ theme }) => theme.fonts.regular};
+    color: ${({ theme }) => theme.colors.gray_200};
 `;
 
 export const ErrorText = styled.Text`

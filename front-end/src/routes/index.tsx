@@ -14,6 +14,8 @@ import { Profile } from '../pages/Profile';
 import { ProfilePassword } from '../pages/ProfilePassword';
 import { Register } from '../pages/Register';
 import { Login } from '../pages/Login';
+import { useUserContext } from '../context/useUserContext';
+import { Loading } from '../pages/Loading';
 
 // stack
 const Stack = createNativeStackNavigator();
@@ -21,9 +23,17 @@ const Stack = createNativeStackNavigator();
 export function Routes() {
     //consts
     const screenOptions = { headerShown: false };
+    const { isLoading = true, user } = useUserContext();
 
     function renderRoutes() {
-        if (1 === 1) {
+        if (isLoading) {
+            return (
+                <>
+                    <Stack.Screen name="Loading" component={Loading} />
+                </>
+            );
+        }
+        if (!user) {
             return (
                 <>
                     <Stack.Screen name="Login" component={Login} />

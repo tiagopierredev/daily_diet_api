@@ -8,8 +8,12 @@ export async function updateMe(request: FastifyRequest, reply: FastifyReply) {
 		email: z.string().email("Email is invalid").optional(),
 		name: z.string().optional(),
 		password: z.string().min(6, "Password must be at least 6 characters").optional(),
+		confirmPassword: z.string().min(6, "Password must be at least 6 characters").optional(),
+		photo: z.string().url("URL is invalid").optional(),
+	}).refine(data => data.password === data.confirmPassword, {
+		message: "As senhas não correspondem!",
 	});
-	const { email, name, password } = schemaBody.parse(request.body);
+	const { email, name, password, photo } = schemaBody.parse(request.body);
 	try {
 		const updateUserUseCase = makeUpdateUserUseCase();
 		await updateUserUseCase.execute({
@@ -17,6 +21,7 @@ export async function updateMe(request: FastifyRequest, reply: FastifyReply) {
 			email,
 			name,
 			password,
+			photo
 		});
 		reply.status(200).send({
 			message: "User updated successfully",

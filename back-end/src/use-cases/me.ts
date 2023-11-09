@@ -11,6 +11,7 @@ interface MeUseCaseResponse {
 		name: User["name"];
 		email: User["email"];
 		id: User["id"];
+		photo: User["photo"];
 	};
 }
 
@@ -26,6 +27,7 @@ export class MeUseCase {
 
 		return {
 			user: {
+				photo: user.photo,
 				name: user.name,
 				email: user.email,
 				id: user.id,

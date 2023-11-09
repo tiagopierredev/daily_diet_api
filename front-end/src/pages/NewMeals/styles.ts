@@ -107,3 +107,11 @@ export const StatusDiet = styled.View<StatusDietProps>`
     margin-right: ${({ theme }) => theme.size(8)};
     border-radius: 4px;
 `;
+
+export const ErrorText = styled.Text`
+    font-size: ${({ theme }) => theme.size(11)};
+    height: ${({ theme }) => theme.size(16)};
+    font-family: ${({ theme }) => theme.fonts.regular};
+    color: ${({ theme }) => theme.colors.redDark};
+    margin-top: ${({ theme }) => theme.size(4)};
+`;

@@ -4,7 +4,9 @@ interface StatuProps {
     isDiet: boolean;
 }
 
-export const Container = styled.View``;
+export const Container = styled.View`
+    flex: 1;
+`;
 
 export const Title = styled.Text`
     font-size: ${({ theme }) => theme.size(18)};
@@ -14,6 +16,7 @@ export const Title = styled.Text`
 
 export const MealsList = styled.View`
     margin-bottom: ${({ theme }) => theme.size(24)};
+    flex: 1;
 `;
 
 export const MealContainer = styled.TouchableOpacity`
@@ -60,5 +63,5 @@ export const Status = styled.View<StatuProps>`
     height: ${({ theme }) => theme.size(14)};
     border-radius: 7px;
     background-color: ${({ theme, isDiet }) =>
-        isDiet ? theme.colors.greenMid : theme.colors.redLight};
+        isDiet ? theme.colors.greenMid : theme.colors.redMid};
 `;

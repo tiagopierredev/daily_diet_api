@@ -103,3 +103,9 @@ export const PasswordButtonLogOutText = styled.Text`
     margin-left: ${({ theme }) => theme.size(8)};
     color: ${({ theme }) => theme.colors.redDark};
 `;
+
+export const UserPhoto = styled.Image`
+    width: ${({ theme }) => theme.size(100)};
+    height: ${({ theme }) => theme.size(100)};
+    border-radius: ${({ theme }) => theme.size(100)};
+`;
