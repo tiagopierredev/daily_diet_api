@@ -2,81 +2,69 @@
   <img alt="Logo do ToDo" src="./front-end/src/assets/images/logo.png" style="vertical-align: middle;">
 </h1>
 
-> Desafio 02 da Trilha ReactJS do Ignite da Rocketseat.
-
 <p align="center">
-  <a href="#project">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#technologies">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#usage">Utilização</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#license">Licença</a>
+  <a href="#project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#usage">Use</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#license">License</a>
 </p>
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=49AA26&labelColor=000000">
 </p>
 
-<h2 id="project">📁 Projeto</h2>
+<h2 id="project">📁 Project</h2>
 
-O projeto consiste numa lista de tarefas que contém as seguintes funcionalidades:
+The project consists of a list of tasks that contains the following features:
 
-- Adicionar uma nova tarefa
-- Marcar e desmarcar uma tarefa como concluída
-- Remover uma tarefa da listagem
-- Mostrar o progresso de conclusão das tarefas
+- It must be possible to create a user
+- It must be possible to identify the user between requests
+- Meals application rules
 
-![ToDo List](./public/todo-list.png)
+It must be possible to record a meal eaten, with the following information:
 
-<h2 id="technologies">💻 Tecnologias</h2>
+- Name
+- Description
+- Date and Time
+- Is it on the diet or not
+- Meals must be related to a user
+- It must be possible to edit a meal, being able to change all the data above
+- It should be possible to delete a meal
+- It must be possible to view a single meal
+- It should be possible to list all of a user's meals
+- It must be possible to retrieve a user's metrics
+- Total number of meals recorded
+- Total number of meals within the diet
+- Total number of meals outside the diet
+- Best sequence of meals within the diet
+- The user can only view, edit and delete the meals he created
 
-Este projeto foi desenvolvido com tecnologias como:
+<h2 id="technologies">💻 Technologies</h2>
 
-- React
-- ReactDOM
-- TypeScript
-- Vite
+This project was developed with technologies such as:
 
-<h2 id="usage">💡 Utilização</h2>
+Back end
+- NodeJs
+- Fastify
+- Prisma
+- Postgresql
+- Docker
 
-A aplicação está disponível para uso [aqui](https://todo-list-phi-sandy.vercel.app/).
-
-Você também pode executá-la em sua máquina localmente. Certifique-se de ter o `Node.js` e o `npm` instalados antes de prosseguir com as etapas abaixo:
-
-1. Clone o projeto:
-
-```
-$ git clone https://github.com/madalena-rocha/todo-list
-```
-
-2. Acesse a pasta do projeto:
-
-```
-$ cd todo-list
-```
-
-3. Instale as dependências:
-
-```
-$ npm install
-```
-
-4. Inicie o servidor:
-
-```
-$ npm run dev
-```
+Front end
+- Expo
+- React Hook Form
+- React Query
+- Styled Component
+- Axios
 
 <h2 id="license">📝 Licença</h2>
 
-Este projeto está sob a licença MIT.
+This project is under the MIT license.
 
 ---
 
-Feito com 💜 by Madalena 👋🏾
+Made with 💜 by Tiago Pierre 👋🏾
 
 <div style="display: flex;">
-  <a href="https://www.linkedin.com/in/madalena-machado-rocha/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" style="margin-right: 2vw" target="_blank"></a>
-  <a href="mailto:rochamada1997m@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" style="margin-right: 2vw" target="_blank"></a>
-  <a href="http://discordapp.com/users/827312692905377802" target="_blank"><img src="https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white" style="margin-right: 2vw" target="_blank"></a>
-  <a href="https://www.instagram.com/madalena.machado.rocha/" target="_blank"><img src="https://img.shields.io/badge/-Instagram-%23E4405F?style=for-the-badge&logo=instagram&logoColor=white" target="_blank"></a>
-
+  <a href="https://www.linkedin.com/in/tiagopierredev/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" style="margin-right: 2vw" target="_blank"></a>
 </div>
