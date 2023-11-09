@@ -28,7 +28,11 @@ export function NewMeals() {
     const route: any = useRoute();
 
     const [isDiet, setIsDiet] = useState<null | 'yes' | 'no'>(
-        route.params?.snack?.is_diet ? 'yes' : 'no'
+        route.params?.snack
+            ? route.params?.snack?.is_diet
+                ? 'yes'
+                : 'no'
+            : null
     );
 
     const navigation: any = useNavigation();
@@ -106,8 +110,6 @@ export function NewMeals() {
         clearErrors('isDiet');
     }, [watch('isDiet')]);
 
-    const isDietValue = route.params?.snack ? isDiet : null;
-
     return (
         <S.Container>
             <S.Header insets={useSafeAreaInsets()}>
@@ -163,7 +165,7 @@ export function NewMeals() {
                     <S.DietText>Está dentro da dieta?</S.DietText>
                     <S.ContainerTwoInputs>
                         <S.DietButton
-                            isDiet={isDietValue}
+                            isDiet={isDiet}
                             onPress={() => handleIsDiet('yes')}
                             value="yes"
                         >
@@ -171,7 +173,7 @@ export function NewMeals() {
                             <S.DietButtonText>Sim</S.DietButtonText>
                         </S.DietButton>
                         <S.DietButton
-                            isDiet={isDietValue}
+                            isDiet={isDiet}
                             onPress={() => handleIsDiet('no')}
                             value="no"
                         >

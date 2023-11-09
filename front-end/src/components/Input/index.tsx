@@ -56,6 +56,7 @@ export function Input({
             <S.InputContainer
                 multiline={multiline}
                 onPress={mask ? showDatePicker : () => null}
+                disabled={mask ? true : false}
             >
                 <S.Input
                     {...rest}
